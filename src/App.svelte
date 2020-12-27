@@ -1,16 +1,18 @@
 <script>
 	export let name;
-	import Field from './pages/Field.svelte'
+	import Game from './pages/Game.svelte'
 	import Title from "./pages/Title.svelte"
 	let page = ""
-
+	function handleStart() {
+		page = "field"
+	}
 </script>
 
 <main>
 	{#if page == "field"}
-		<Field />
+		<Game />
 	{:else}
-		<Title />
+		<Title on:start={handleStart}/>
 	{/if}
 </main>
 
