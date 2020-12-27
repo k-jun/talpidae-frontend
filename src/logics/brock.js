@@ -11,6 +11,7 @@ export default class BrockState {
 
     constructor({ id, type, attributes }) {
         BrockState.validate({ type, attributes })
+        this.id = id
         this.type = type;
         this.attributes = attributes
         this.durable = BrockState.brockProparties[type].durable
@@ -46,14 +47,18 @@ export default class BrockState {
         this.durable = Math.max(0, this.durable - attack)
     }
 
-    addAttribute(attribute) {
-        if (!Brocks.validate_type(attribute)) {
-            throw 'invalid brock type';
-        }
-        this.attributes.push(type)
+    isBroken() {
+        return this.durable == 0
     }
 
-    isGoal() {
-        return this.attributes.includes("goal")
-    }
+    // addAttribute(attribute) {
+    //     if (!Brocks.validate_type(attribute)) {
+    //         throw 'invalid brock type';
+    //     }
+    //     this.attributes.push(type)
+    // }
+
+    // isGoal() {
+    //     return this.attributes.includes("goal")
+    // }
 }

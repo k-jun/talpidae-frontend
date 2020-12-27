@@ -1,56 +1,60 @@
 <script>
+    import { onMount } from "svelte";
     import Block from "../atomics/Block.svelte";
     import WhiteBlock from "../atomics/WhiteBlock.svelte";
-    import { onMount } from "svelte";
 
     export let field;
+    export let controller;
+
+    console.log(field);
     let px = "10px";
     let focus_id = "";
-    let ch = Math.floor(Math.random() * Math.floor(field.height));
-    let cw = Math.floor(Math.random() * Math.floor(field.width));
     onMount(async () => {
-        focus_id = brocks[ch][cw].id;
-        document.getElementById(focus_id).focus({ preventScroll: false });
-        brocks[ch][cw].break = true;
+        field.dig({ ...controller.currentPosition(), attack: 100 });
+        focus_current_position();
     });
+
+    const focus_current_position = () => {
+        focus_id =
+            field.brocks[controller.current_height][controller.current_width]
+                .id;
+        document.getElementById(focus_id).focus({ preventScroll: false });
+    };
 
     // key controller
     document.addEventListener("keydown", (event) => {
-        if (event.key == "ArrowDown" && ch != height - 1) {
-            ch += 1;
+        console.log(event.key)
+        switch (event.key) {
+            case "ArrowUp":
+                controller.moveUp();
+                break;
+            case "ArrowDown":
+                controller.moveDown();
+                break;
+            case "ArrowLeft":
+                controller.moveLeft();
+                break;
+            case "ArrowRight":
+                controller.moveRight();
+                break;
+            case "Enter":
+                if (
+                    controller
+                        .getAroundPositions()
+                        .every(
+                            (pos) =>
+                                !field.brocks[pos.height][pos.width].isBroken()
+                        )
+                ) {
+                    return;
+                }
+                field.dig({ ...controller.currentPosition(), attack: 100 });
+                // for updating ui
+                field = field
+                break;
         }
-        if (event.key == "ArrowUp" && ch != 0) {
-            ch -= 1;
-        }
-
-        if (event.key == "ArrowLeft" && cw != 0) {
-            cw -= 1;
-        }
-
-        if (event.key == "ArrowRight" && cw != width - 1) {
-            cw += 1;
-        }
-        if (event.key == "Enter") {
-            let validator = false;
-            if (
-                (ch != 0 && brocks[ch - 1][cw].break) ||
-                (ch != height - 1 && brocks[ch + 1][cw].break) ||
-                (cw != 0 && brocks[ch][cw - 1].break) ||
-                (cw != width - 1 && brocks[ch][cw + 1].break)
-            ) {
-                validator = true;
-            }
-            if (validator) {
-                brocks[ch][cw].break = true;
-            }
-
-            if (brocks[ch][cw].goal) {
-                alert("game clear!!");
-                alert("thanks for playing!!");
-            }
-        }
-        focus_id = brocks[ch][cw].id;
-        document.getElementById(focus_id).focus({ preventScroll: false });
+        focus_current_position();
+        
     });
 </script>
 

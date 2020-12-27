@@ -1,13 +1,13 @@
 "use strict";
 
 import BrockState from "./brock"
+import { v4 as uuidv4 } from 'uuid';
 
 export default class FieldState {
     static minHeight = 10;
     static minWidth = 20;
     static maxHeight = 100;
     static maxWidth = 200;
-
 
     constructor({ height, width, attributeFunctions }) {
         FieldState.validate({ height, width, attributeFunctions })
@@ -16,10 +16,17 @@ export default class FieldState {
         for (let i = 0; i < height; i++) {
             let v = []
             for (let j = 0; j < width; j++) {
-                v.push(new BrockState({ id: 1, type: "soil", attributes: [] }))
+                let uuid = uuidv4();
+                v.push(new BrockState({ id: uuid, type: "soil", attributes: [] }))
             }
             brocks.push(v)
         }
+
+        // create goal
+        let goal_width = Math.floor(Math.random() * height);
+	    let goal_height = Math.floor(Math.random() * width);
+
+        // create hints
         this.brocks = brocks
         this.height = height
         this.width = width
@@ -58,8 +65,8 @@ export default class FieldState {
     }
 
     dig({ height, width, attack }) {
-        this.broaks[height][width].dig(attack)
-        if (this.broaks[height][width] == 0) {
+        this.brocks[height][width].dig(attack)
+        if (this.brocks[height][width] == 0) {
             this.brocks[height][width].attributes.forEach((v) => {
                 this.attributeFunctions[v]()
             })
