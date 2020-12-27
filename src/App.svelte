@@ -1,15 +1,14 @@
 <script>
-	export let name;
 	import Game from './pages/Game.svelte'
 	import Title from "./pages/Title.svelte"
-	let page = ""
+	let page = "game"
 	function handleStart() {
-		page = "field"
+		page = "game"
 	}
 </script>
 
 <main>
-	{#if page == "field"}
+	{#if page == "game"}
 		<Game />
 	{:else}
 		<Title on:start={handleStart}/>
@@ -19,7 +18,6 @@
 <style>
 	main {
 		text-align: center;
-		/* padding: 1em; */
 		max-width: 240px;
 		margin: 0 auto;
 		width: 100%;

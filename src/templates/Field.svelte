@@ -2,22 +2,12 @@
     import Block from "../atomics/Block.svelte";
     import WhiteBlock from "../atomics/WhiteBlock.svelte";
     import { onMount } from "svelte";
-    let brocks = [];
-    let height = 50;
-    let width = 70;
-    for (let i = 0; i < height; i++) {
-        let row = [];
-        for (let j = 0; j < width; j++) {
-            row.push({ id: `block-no.${i * width + j}`, break: false, goal: false });
-        }
-        brocks.push(row);
-    }
 
-    brocks[0][0].goal = true;
+    export let field;
     let px = "10px";
     let focus_id = "";
-    let ch = Math.floor(Math.random() * Math.floor(height));
-    let cw = Math.floor(Math.random() * Math.floor(width));
+    let ch = Math.floor(Math.random() * Math.floor(field.height));
+    let cw = Math.floor(Math.random() * Math.floor(field.width));
     onMount(async () => {
         focus_id = brocks[ch][cw].id;
         document.getElementById(focus_id).focus({ preventScroll: false });
@@ -55,8 +45,8 @@
             }
 
             if (brocks[ch][cw].goal) {
-                alert("game clear!!")
-                alert("thanks for playing!!")
+                alert("game clear!!");
+                alert("thanks for playing!!");
             }
         }
         focus_id = brocks[ch][cw].id;
@@ -96,16 +86,16 @@
 </style>
 
 <main>
-    {#each brocks as row}
+    {#each field.brocks as row}
         <div class="row">
-            {#each row as b}
-                <div class="block" tabindex="0" id={b.id}>
-                    {#if b.break}
+            {#each row as brock}
+                <div class="block" tabindex="0" id={brock.id}>
+                    {#if brock.durable == 0}
                         <WhiteBlock {px} />
                     {:else}
                         <Block {px} />
                     {/if}
-                    {#if focus_id == b.id}
+                    {#if focus_id == brock.id}
                         <div class="overlay" />
                     {/if}
                 </div>

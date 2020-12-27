@@ -7,9 +7,9 @@
 </script>
 
 {#if random == 1}
-	<Block1 px={px} />
+	<Block1 {px} />
 {:else if random == 2}
-	<Block2 px={px}/>
+	<Block2 {px} />
 {:else}
-	<Block3 px={px}/>
+	<Block3 {px} />
 {/if}
