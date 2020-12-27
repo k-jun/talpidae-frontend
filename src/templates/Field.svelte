@@ -47,11 +47,10 @@
                 }
                 field.dig({ ...controller.currentPosition(), attack: 100 });
                 // for updating ui
-                field = field
+                field = field;
                 break;
         }
         focus_current_position();
-        
     });
 </script>
 
@@ -94,7 +93,7 @@
                     {#if block.durable == 0}
                         <WhiteBlock {px} />
                     {:else}
-                        <Block {px} />
+                        <Block {px} type={block.type} />
                     {/if}
                     {#if focus_id == block.id}
                         <div class="overlay" />

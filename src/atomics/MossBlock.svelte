@@ -1,125 +1,15 @@
 <script>
-    export let px;
+	import MossBlock1 from "./MossBlock1.svelte";
+	import MossBlock2 from "./MossBlock2.svelte";
+	import MossBlock3 from "./MossBlock3.svelte";
+	let random = Math.floor(Math.random() * 3);
+	export let px = "10px";
 </script>
 
-<style>
-    .container {
-        height: calc(var(--px) * 10);
-        width: calc(var(--px) * 10);
-        position: relative;
-        border: 1px black solid;
-    }
-    .dot::before {
-        content: "";
-        position: absolute;
-        top: calc(var(--px) * -1);
-        left: calc(var(--px) * -1);
-        width: var(--px);
-        height: var(--px);
-        background: transparent;
-        box-shadow: calc(var(--px) * 1) calc(var(--px) * 1) 0 #3a5c22,
-            calc(var(--px) * 2) calc(var(--px) * 1) 0 #6d391e,
-            calc(var(--px) * 3) calc(var(--px) * 1) 0 #3a5c22,
-            calc(var(--px) * 4) calc(var(--px) * 1) 0 #6d391e,
-            calc(var(--px) * 5) calc(var(--px) * 1) 0 #3a5c22,
-            calc(var(--px) * 6) calc(var(--px) * 1) 0 #3a5c22,
-            calc(var(--px) * 7) calc(var(--px) * 1) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 1) 0 #6d391e,
-            calc(var(--px) * 9) calc(var(--px) * 1) 0 #3a5c22,
-            calc(var(--px) * 10) calc(var(--px) * 1) 0 #4a271b,
-            calc(var(--px) * 1) calc(var(--px) * 2) 0 #6d391e,
-            calc(var(--px) * 2) calc(var(--px) * 2) 0 #3a5c22,
-            calc(var(--px) * 3) calc(var(--px) * 2) 0 #3a5c22,
-            calc(var(--px) * 4) calc(var(--px) * 2) 0 #4a271b,
-            calc(var(--px) * 5) calc(var(--px) * 2) 0 #4a271b,
-            calc(var(--px) * 6) calc(var(--px) * 2) 0 #4a271b,
-            calc(var(--px) * 7) calc(var(--px) * 2) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 2) 0 #6d391e,
-            calc(var(--px) * 9) calc(var(--px) * 2) 0 #3a5c22,
-            calc(var(--px) * 10) calc(var(--px) * 2) 0 #4a271b,
-            calc(var(--px) * 1) calc(var(--px) * 3) 0 #6d391e,
-            calc(var(--px) * 2) calc(var(--px) * 3) 0 #3a5c22,
-            calc(var(--px) * 3) calc(var(--px) * 3) 0 #3a5c22,
-            calc(var(--px) * 4) calc(var(--px) * 3) 0 #4a271b,
-            calc(var(--px) * 5) calc(var(--px) * 3) 0 #3a5c22,
-            calc(var(--px) * 6) calc(var(--px) * 3) 0 #6d391e,
-            calc(var(--px) * 7) calc(var(--px) * 3) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 3) 0 #6d391e,
-            calc(var(--px) * 9) calc(var(--px) * 3) 0 #3a5c22,
-            calc(var(--px) * 10) calc(var(--px) * 3) 0 #4a271b,
-            calc(var(--px) * 1) calc(var(--px) * 4) 0 #3a5c22,
-            calc(var(--px) * 2) calc(var(--px) * 4) 0 #4a271b,
-            calc(var(--px) * 3) calc(var(--px) * 4) 0 #6d391e,
-            calc(var(--px) * 4) calc(var(--px) * 4) 0 #6d391e,
-            calc(var(--px) * 5) calc(var(--px) * 4) 0 #6d391e,
-            calc(var(--px) * 6) calc(var(--px) * 4) 0 #3a5c22,
-            calc(var(--px) * 7) calc(var(--px) * 4) 0 #6d391e,
-            calc(var(--px) * 8) calc(var(--px) * 4) 0 #4a271b,
-            calc(var(--px) * 9) calc(var(--px) * 4) 0 #6d391e,
-            calc(var(--px) * 10) calc(var(--px) * 4) 0 #4a271b,
-            calc(var(--px) * 1) calc(var(--px) * 5) 0 #4a271b,
-            calc(var(--px) * 2) calc(var(--px) * 5) 0 #6d391e,
-            calc(var(--px) * 3) calc(var(--px) * 5) 0 #4a271b,
-            calc(var(--px) * 4) calc(var(--px) * 5) 0 #3a5c22,
-            calc(var(--px) * 5) calc(var(--px) * 5) 0 #3a5c22,
-            calc(var(--px) * 6) calc(var(--px) * 5) 0 #3a5c22,
-            calc(var(--px) * 7) calc(var(--px) * 5) 0 #6d391e,
-            calc(var(--px) * 8) calc(var(--px) * 5) 0 #6d391e,
-            calc(var(--px) * 9) calc(var(--px) * 5) 0 #3a5c22,
-            calc(var(--px) * 10) calc(var(--px) * 5) 0 #6d391e,
-            calc(var(--px) * 1) calc(var(--px) * 6) 0 #4a271b,
-            calc(var(--px) * 2) calc(var(--px) * 6) 0 #4a271b,
-            calc(var(--px) * 3) calc(var(--px) * 6) 0 #3a5c22,
-            calc(var(--px) * 4) calc(var(--px) * 6) 0 #6d391e,
-            calc(var(--px) * 5) calc(var(--px) * 6) 0 #6d391e,
-            calc(var(--px) * 6) calc(var(--px) * 6) 0 #6d391e,
-            calc(var(--px) * 7) calc(var(--px) * 6) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 6) 0 #4a271b,
-            calc(var(--px) * 9) calc(var(--px) * 6) 0 #4a271b,
-            calc(var(--px) * 10) calc(var(--px) * 6) 0 #3a5c22,
-            calc(var(--px) * 1) calc(var(--px) * 7) 0 #3a5c22,
-            calc(var(--px) * 2) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 3) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 4) calc(var(--px) * 7) 0 #3a5c22,
-            calc(var(--px) * 5) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 6) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 7) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 7) 0 #3a5c22,
-            calc(var(--px) * 9) calc(var(--px) * 7) 0 #4a271b,
-            calc(var(--px) * 10) calc(var(--px) * 7) 0 #6d391e,
-            calc(var(--px) * 1) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 2) calc(var(--px) * 8) 0 #3a5c22,
-            calc(var(--px) * 3) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 4) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 5) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 6) calc(var(--px) * 8) 0 #3a5c22,
-            calc(var(--px) * 7) calc(var(--px) * 8) 0 #3a5c22,
-            calc(var(--px) * 8) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 9) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 10) calc(var(--px) * 8) 0 #4a271b,
-            calc(var(--px) * 1) calc(var(--px) * 9) 0 #3a5c22,
-            calc(var(--px) * 2) calc(var(--px) * 9) 0 #4a271b,
-            calc(var(--px) * 3) calc(var(--px) * 9) 0 #4a271b,
-            calc(var(--px) * 4) calc(var(--px) * 9) 0 #4a271b,
-            calc(var(--px) * 5) calc(var(--px) * 9) 0 #3a5c22,
-            calc(var(--px) * 6) calc(var(--px) * 9) 0 #3a5c22,
-            calc(var(--px) * 7) calc(var(--px) * 9) 0 #4a271b,
-            calc(var(--px) * 8) calc(var(--px) * 9) 0 #3a5c22,
-            calc(var(--px) * 9) calc(var(--px) * 9) 0 #6d391e,
-            calc(var(--px) * 10) calc(var(--px) * 9) 0 #6d391e,
-            calc(var(--px) * 1) calc(var(--px) * 10) 0 #4a271b,
-            calc(var(--px) * 2) calc(var(--px) * 10) 0 #6d391e,
-            calc(var(--px) * 3) calc(var(--px) * 10) 0 #3a5c22,
-            calc(var(--px) * 4) calc(var(--px) * 10) 0 #3a5c22,
-            calc(var(--px) * 5) calc(var(--px) * 10) 0 #4a271b,
-            calc(var(--px) * 6) calc(var(--px) * 10) 0 #4a271b,
-            calc(var(--px) * 7) calc(var(--px) * 10) 0 #6d391e,
-            calc(var(--px) * 8) calc(var(--px) * 10) 0 #6d391e,
-            calc(var(--px) * 9) calc(var(--px) * 10) 0 #6d391e,
-            calc(var(--px) * 10) calc(var(--px) * 10) 0 #4a271b;
-    }
-</style>
-
-<div class="container" style="--px: {px}">
-    <div class="dot" />
-</div>
+{#if random == 1}
+	<MossBlock1 {px} />
+{:else if random == 2}
+	<MossBlock2 {px} />
+{:else}
+	<MossBlock3 {px} />
+{/if}

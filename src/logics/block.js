@@ -3,9 +3,19 @@
 export default class BlockState {
     static blockProperties = {
         required: ["durable"],
-        soil: {
-            durable: 101,
-        }
+        "soil": {
+            durable: 100,
+        },
+        "rock": {
+            durable: 200,
+        },
+        "moss": {
+            durable: 100,
+        },
+        "iron": {
+            durable: 500,
+        },
+
     }
     static blockAttributes = ["goal", "hint"]
 
@@ -40,6 +50,22 @@ export default class BlockState {
     static validate_attribute(attribute) {
         if (!BlockState.blockAttributes.includes(attribute)) {
             throw 'invalid arguments';
+        }
+    }
+
+    static random_block_type() {
+        let random = Math.floor(Math.random() * 10);
+        if (random < 5) {
+            return "soil"
+        }
+        if (random < 7) {
+            return "moss"
+        }
+        if (random < 9) {
+            return "rock"
+        }
+        if (random < 10) {
+            return "iron"
         }
     }
 

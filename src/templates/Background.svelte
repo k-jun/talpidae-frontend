@@ -1,5 +1,5 @@
 <script>
-	import Block from "../atomics/Block.svelte";
+	import Block from "../atomics/RandomBlock.svelte";
 	let blocks = [];
 	let minv = 50;
 	let px = "5px";

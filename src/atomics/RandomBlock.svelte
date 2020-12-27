@@ -3,17 +3,18 @@
 	import MossBlock from "./MossBlock.svelte";
 	import RockBlock from "./RockBlock.svelte";
 	import IronBlock from "./IronBlock.svelte";
-	export let px = "10px";
-	export let type = "soil";
+    export let px = "10px";
+    let random = Math.floor(Math.random() * 10);
+    
 </script>
 
-{#if type == 'soil'}
+{#if random < 5}
 	<SoilBlock {px} />
-{:else if type == 'moss'}
+{:else if random < 7}
 	<MossBlock {px} />
-{:else if type == 'rock'}
+{:else if random < 9}
 	<RockBlock {px} />
-{:else if type == 'iron'}
+{:else if random < 10}
 	<IronBlock {px} />
 {:else}
 	<SoilBlock {px} />

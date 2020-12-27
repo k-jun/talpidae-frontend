@@ -16,8 +16,9 @@ export default class FieldState {
         for (let i = 0; i < height; i++) {
             let v = []
             for (let j = 0; j < width; j++) {
-                let uuid = uuidv4();
-                v.push(new BlockState({ id: uuid, type: "soil", attributes: [] }))
+                let id = uuidv4();
+                let type = BlockState.random_block_type()
+                v.push(new BlockState({ id, type, attributes: [] }))
             }
             blocks.push(v)
         }
