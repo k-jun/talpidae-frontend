@@ -3,11 +3,7 @@
 	import FieldState from "../logics/field";
 	import Controller from "../logics/controller";
 
-	let attributeFunctions = {
-		goal: () => alert("game clear!!"),
-		hint: () => alert("hint time!"),
-	};
-	let field = new FieldState({ height: 10, width: 10, attributeFunctions });
+	let field = new FieldState({ height: 20, width: 30 });
 	let current_width = Math.floor(Math.random() * field.height);
 	let current_height = Math.floor(Math.random() * field.width);
 	let controller = new Controller({
@@ -16,6 +12,14 @@
 		current_width,
 		current_height,
 	});
+	let attributeFunctions = {
+		goal: () => alert("game clear!!"),
+		hint: () => {
+			let distance = field.hint(controller.currentPosition());
+			alert(`you are ${distance} blocks away from the goal`);
+		},
+	};
+	field.setAttributeFunctions({ attributeFunctions });
 </script>
 
 <style>

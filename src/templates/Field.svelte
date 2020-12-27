@@ -5,25 +5,22 @@
 
     export let field;
     export let controller;
-
-    console.log(field);
     let px = "10px";
     let focus_id = "";
     onMount(async () => {
-        field.dig({ ...controller.currentPosition(), attack: 100 });
+        field.dig({ ...controller.currentPosition(), attack: 1000 });
         focus_current_position();
     });
 
     const focus_current_position = () => {
         focus_id =
-            field.brocks[controller.current_height][controller.current_width]
+            field.blocks[controller.current_height][controller.current_width]
                 .id;
         document.getElementById(focus_id).focus({ preventScroll: false });
     };
 
     // key controller
     document.addEventListener("keydown", (event) => {
-        console.log(event.key)
         switch (event.key) {
             case "ArrowUp":
                 controller.moveUp();
@@ -43,7 +40,7 @@
                         .getAroundPositions()
                         .every(
                             (pos) =>
-                                !field.brocks[pos.height][pos.width].isBroken()
+                                !field.blocks[pos.height][pos.width].isBroken()
                         )
                 ) {
                     return;
@@ -90,16 +87,16 @@
 </style>
 
 <main>
-    {#each field.brocks as row}
+    {#each field.blocks as row}
         <div class="row">
-            {#each row as brock}
-                <div class="block" tabindex="0" id={brock.id}>
-                    {#if brock.durable == 0}
+            {#each row as block}
+                <div class="block" tabindex="0" id={block.id}>
+                    {#if block.durable == 0}
                         <WhiteBlock {px} />
                     {:else}
                         <Block {px} />
                     {/if}
-                    {#if focus_id == brock.id}
+                    {#if focus_id == block.id}
                         <div class="overlay" />
                     {/if}
                 </div>

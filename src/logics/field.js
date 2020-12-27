@@ -1,6 +1,6 @@
 "use strict";
 
-import BrockState from "./brock"
+import BlockState from "./block"
 import { v4 as uuidv4 } from 'uuid';
 
 export default class FieldState {
@@ -9,41 +9,51 @@ export default class FieldState {
     static maxHeight = 100;
     static maxWidth = 200;
 
-    constructor({ height, width, attributeFunctions }) {
-        FieldState.validate({ height, width, attributeFunctions })
+    constructor({ height, width }) {
+        FieldState.validate({ height, width })
 
-        let brocks = []
+        let blocks = []
         for (let i = 0; i < height; i++) {
             let v = []
             for (let j = 0; j < width; j++) {
                 let uuid = uuidv4();
-                v.push(new BrockState({ id: uuid, type: "soil", attributes: [] }))
+                v.push(new BlockState({ id: uuid, type: "soil", attributes: [] }))
             }
-            brocks.push(v)
+            blocks.push(v)
         }
 
         // create goal
-        let goal_width = Math.floor(Math.random() * height);
-	    let goal_height = Math.floor(Math.random() * width);
+        let goal_height = Math.floor(Math.random() * height);
+        let goal_width = Math.floor(Math.random() * width);
+        blocks[goal_height][goal_width].setAttribute("goal")
 
         // create hints
-        this.brocks = brocks
+        let cnt = height * width / 10;
+        for (let i = 0; i < cnt; i++) {
+            let hint_height = Math.floor(Math.random() * height);
+            let hint_width = Math.floor(Math.random() * width);
+            if (!blocks[hint_height][hint_width].isGoal()) {
+                blocks[hint_height][hint_width].setAttribute("hint")
+            }
+        }
+
+        this.blocks = blocks
         this.height = height
         this.width = width
-        this.attributeFunctions = attributeFunctions
+        this.goal_height = goal_height
+        this.goal_width = goal_width
     }
 
     static validate({ height, width, attributeFunctions }) {
         FieldState.validate_hw({ height, width })
-        FieldState.validate_functions({ attributeFunctions })
     }
 
     static validate_hw({ height, width }) {
         if (
-            BrockState.minHeight <= height &&
-            height <= BrockState.maxHeight &&
-            BrockState.minWidth <= width &&
-            width <= BrockState.maxWidth
+            BlockState.minHeight <= height &&
+            height <= BlockState.maxHeight &&
+            BlockState.minWidth <= width &&
+            width <= BlockState.maxWidth
         ) {
             throw 'invalid arguments';
 
@@ -52,24 +62,32 @@ export default class FieldState {
 
     static validate_functions({ attributeFunctions }) {
         Object.keys(attributeFunctions).forEach((k) => {
-            BrockState.brockAttributes.forEach((v) => {
+            BlockState.blockAttributes.forEach((v) => {
                 if (!Object.keys(attributeFunctions).includes(v)) {
                     throw 'invalid arguments';
                 }
             })
             if (typeof attributeFunctions[k] != "function") {
-                throw 'invalid arguments';   
+                throw 'invalid arguments';
             }
         })
+    }
 
+    setAttributeFunctions({ attributeFunctions }) {
+        FieldState.validate_functions({ attributeFunctions })
+        this.attributeFunctions = attributeFunctions
     }
 
     dig({ height, width, attack }) {
-        this.brocks[height][width].dig(attack)
-        if (this.brocks[height][width] == 0) {
-            this.brocks[height][width].attributes.forEach((v) => {
+        this.blocks[height][width].dig(attack)
+        if (this.blocks[height][width].durable == 0) {
+            this.blocks[height][width].attributes.forEach((v) => {
                 this.attributeFunctions[v]()
             })
         }
+    }
+
+    hint({ height, width }) {
+        return Math.abs(height - this.goal_height) + Math.abs(width - this.goal_width)
     }
 }

@@ -1,7 +1,7 @@
 <script>
 	import Game from './pages/Game.svelte'
 	import Title from "./pages/Title.svelte"
-	let page = "game"
+	let page = ""
 	function handleStart() {
 		page = "game"
 	}
