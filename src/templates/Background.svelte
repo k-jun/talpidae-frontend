@@ -1,15 +1,15 @@
 <script>
-	import Block from "../atomics/RandomBlock.svelte";
+	import RandomBlock from "../atomics/RandomBlock.svelte";
 	let blocks = [];
 	let minv = 50;
 	let px = "5px";
-	let width = window.innerWidth / (5 * 10) -1;
+	let width = window.innerWidth / (5 * 10) - 1;
 	let height = window.innerHeight / (5 * 10);
 	for (let i = 5; i <= 50; i++) {
 		if (window.innerWidth % (i * 10) < minv) {
 			minv = window.innerWidth % (i * 10);
 			px = `${i}px`;
-			width = window.innerWidth / (i * 10) -1;
+			width = window.innerWidth / (i * 10) - 1;
 			height = window.innerHeight / (i * 10);
 		}
 	}
@@ -49,7 +49,7 @@
 		<div class="row">
 			{#each row as b}
 				<div class="block">
-					<Block {px} />
+					<RandomBlock {px} />
 				</div>
 			{/each}
 		</div>

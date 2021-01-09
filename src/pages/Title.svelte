@@ -1,23 +1,12 @@
 <script>
-	import Background from "../templates/Background.svelte"
-	import { createEventDispatcher } from 'svelte';
+	import Background from "../templates/Background.svelte";
+	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
 
 	function handleStart() {
-		dispatch("start", {})
+		dispatch("start", {});
 	}
 </script>
-
-<main>
-	<Background />
-
-	<h1>TALPIDAE</h1>
-
-	<div>
-		<button on:click={handleStart}>START</button>
-		<button >CONFIG</button>
-	</div>
-</main>
 
 <style>
 	main {
@@ -47,3 +36,14 @@
 		font-size: 60px;
 	}
 </style>
+
+<main>
+	<Background />
+
+	<h1>TALPIDAE</h1>
+
+	<div>
+		<button on:click={handleStart}>START</button>
+		<button>CONFIG</button>
+	</div>
+</main>
