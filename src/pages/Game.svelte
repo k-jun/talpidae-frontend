@@ -12,14 +12,6 @@
 		current_width,
 		current_height,
 	});
-	let attributeFunctions = {
-		goal: () => alert("game clear!!"),
-		hint: () => {
-			let distance = field.hint(controller.currentPosition());
-			alert(`you are ${distance} blocks away from the goal`);
-		},
-	};
-	field.setAttributeFunctions({ attributeFunctions });
 </script>
 
 <style>

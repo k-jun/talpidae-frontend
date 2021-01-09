@@ -15,23 +15,17 @@ export default class BlockState {
         "iron": {
             durable: 500,
         },
-
     }
-    static blockAttributes = ["goal", "hint"]
 
-    constructor({ id, type, attributes }) {
-        BlockState.validate({ type, attributes })
+    constructor({ id, type }) {
+        BlockState.validate({ type })
         this.id = id
         this.type = type;
-        this.attributes = attributes
         this.durable = BlockState.blockProperties[type].durable
     }
 
-    static validate({ type, attributes }) {
+    static validate({ type }) {
         BlockState.validate_type(type)
-        for (let i = 0; i < attributes.length; i++) {
-            BlockState.validate_attribute(attributes[i])
-        }
         return true
     }
 
@@ -46,11 +40,6 @@ export default class BlockState {
             }
         }
         return true;
-    }
-    static validate_attribute(attribute) {
-        if (!BlockState.blockAttributes.includes(attribute)) {
-            throw 'invalid arguments';
-        }
     }
 
     static random_block_type() {
@@ -75,14 +64,5 @@ export default class BlockState {
 
     isBroken() {
         return this.durable == 0
-    }
-
-    setAttribute(attribute) {
-        BlockState.validate_attribute(attribute)
-        this.attributes.push(attribute)
-    }
-
-    isGoal() {
-        return this.attributes.includes("goal")
     }
 }
