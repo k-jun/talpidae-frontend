@@ -1,7 +1,10 @@
 "use strict";
 
 export default class BlockState {
-    static blockSkin = ["gold", "soil", "arrow", "rock", "iron", "white"]
+    static blockSkin = [
+        "gold", "soil", "rock", "iron", "white",
+        "arrow-left", "arrow-up", "arrow-down", "arrow-right", "treasure"
+    ]
     static blockType = ["sakusaku", "katikati", "gotigoti", "otakara", "yazirusi"]
     static blockProperties = {
         soil: {
@@ -28,19 +31,43 @@ export default class BlockState {
             },
             durable: 800,
         },
-        gold: {
+        treasure: {
             blockSkin: {
                 before: "soil",
                 current: "soil",
-                after: "gold",
+                after: "treasure",
             },
             durable: 100,
         },
-        arrow: {
+        arrowleft: {
             blockSkin: {
                 before: "soil",
                 current: "soil",
-                after: "arrow",
+                after: "arrow-left",
+            },
+            durable: 100,
+        },
+        arrowright: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "arrow-right",
+            },
+            durable: 100,
+        },
+        arrowup: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "arrow-up",
+            },
+            durable: 100,
+        },
+        arrowdown: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "arrow-down",
             },
             durable: 100,
         }
@@ -99,7 +126,6 @@ export default class BlockState {
         if (this.durable == 0) {
             this.skin = after
         }
-        console.log(this)
     }
 
     isBroken() {

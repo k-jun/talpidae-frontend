@@ -3,10 +3,10 @@
 	import MossBlock from "./MossBlock.svelte";
 	import RockBlock from "./RockBlock.svelte";
 	import IronBlock from "./IronBlock.svelte";
-	import DownArrowBlock from "./DownArrowBlock.svelte";
-	import UpArrowBlock from "./UpArrowBlock.svelte";
-	import RightArrowBlock from "./RightArrowBlock.svelte";
-	import LeftArrowBlock from "./LeftArrowBlock.svelte";
+	import ArrowDownBlock from "./ArrowDownBlock.svelte";
+	import ArrowUpBlock from "./ArrowUpBlock.svelte";
+	import ArrowRightBlock from "./ArrowRightBlock.svelte";
+	import ArrowLeftBlock from "./ArrowLeftBlock.svelte";
 	import TreasureBlock from "./TreasureBlock.svelte";
 	export let px = "10px";
 	let random = Math.floor(Math.random() * 100);
@@ -21,13 +21,13 @@
 {:else if random < 90}
 	<IronBlock {px} />
 {:else if random < 96}
-	<DownArrowBlock {px} />
+	<ArrowDownBlock {px} />
 {:else if random < 97}
-	<UpArrowBlock {px} />
+	<ArrowUpBlock {px} />
 {:else if random < 98}
-	<RightArrowBlock {px} />
+	<ArrowRightBlock {px} />
 {:else if random < 99}
-	<LeftArrowBlock {px} />
+	<ArrowLeftBlock {px} />
 {:else if random < 100}
 	<TreasureBlock {px} />
 {:else}
