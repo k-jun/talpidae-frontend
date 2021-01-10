@@ -31,14 +31,6 @@ export default class BlockState {
             },
             durable: 800,
         },
-        treasure: {
-            blockSkin: {
-                before: "soil",
-                current: "soil",
-                after: "treasure",
-            },
-            durable: 100,
-        },
         arrowleft: {
             blockSkin: {
                 before: "soil",
@@ -70,7 +62,15 @@ export default class BlockState {
                 after: "arrow-down",
             },
             durable: 100,
-        }
+        },
+        treasure: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "treasure",
+            },
+            durable: 100,
+        },
     }
 
     constructor({ id, type }) {
@@ -130,5 +130,13 @@ export default class BlockState {
 
     isBroken() {
         return this.durable == 0
+    }
+
+    isOverridable() {
+        let type = this.type
+        if (type == "treasure" || type == "arrow-left" || type == "arrow-right" || type == "arrow-up" || type == "arrow-down") {
+            return false
+        }
+        return true
     }
 }
