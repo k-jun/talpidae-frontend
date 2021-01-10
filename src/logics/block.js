@@ -1,20 +1,49 @@
 "use strict";
 
 export default class BlockState {
+    static blockSkin = ["gold", "soil", "arrow", "rock", "iron", "white"]
+    static blockType = ["sakusaku", "katikati", "gotigoti", "otakara", "yazirusi"]
     static blockProperties = {
-        required: ["durable"],
-        "soil": {
+        soil: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "white",
+            },
             durable: 100,
         },
-        "rock": {
-            durable: 200,
+        rock: {
+            blockSkin: {
+                before: "rock",
+                current: "rock",
+                after: "white",
+            },
+            durable: 300,
         },
-        "moss": {
+        iron: {
+            blockSkin: {
+                before: "iron",
+                current: "iron",
+                after: "white",
+            },
+            durable: 800,
+        },
+        gold: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "gold",
+            },
             durable: 100,
         },
-        "iron": {
-            durable: 500,
-        },
+        arrow: {
+            blockSkin: {
+                before: "soil",
+                current: "soil",
+                after: "arrow",
+            },
+            durable: 100,
+        }
     }
 
     constructor({ id, type }) {
@@ -22,6 +51,7 @@ export default class BlockState {
         this.id = id
         this.type = type;
         this.durable = BlockState.blockProperties[type].durable
+        this.skin = BlockState.blockProperties[type]["blockSkin"]["before"]
     }
 
     static validate({ type }) {
@@ -33,12 +63,17 @@ export default class BlockState {
         if (!Object.keys(BlockState.blockProperties).includes(type)) {
             throw 'invalid arguments';
         }
-        let properties = BlockState.blockProperties["required"]
-        for (let i = 0; i < properties.length; i++) {
-            if (typeof BlockState.blockProperties[type][properties[i]] == "undefined") {
-                throw 'invalid arguments';
-            }
+        if (typeof BlockState.blockProperties[type]["durable"] == "undefined") {
+            throw 'invalid durable arguments';
         }
+        let keys = ["before", "current", "after"]
+        keys.forEach((k) => {
+            let skin = BlockState.blockProperties[type]["blockSkin"][k]
+            if (!this.blockSkin.includes(skin)) {
+                throw 'invalid properties';
+            }
+        })
+
         return true;
     }
 
@@ -47,10 +82,7 @@ export default class BlockState {
         if (random < 5) {
             return "soil"
         }
-        if (random < 7) {
-            return "moss"
-        }
-        if (random < 9) {
+        if (random < 8) {
             return "rock"
         }
         if (random < 10) {
@@ -60,6 +92,14 @@ export default class BlockState {
 
     dig(attack) {
         this.durable = Math.max(0, this.durable - attack)
+        let { current, after } = BlockState.blockProperties[this.type]["blockSkin"]
+        if (this.durable != BlockState.blockProperties[this.type]["durable"]) {
+            this.skin = current
+        }
+        if (this.durable == 0) {
+            this.skin = after
+        }
+        console.log(this)
     }
 
     isBroken() {

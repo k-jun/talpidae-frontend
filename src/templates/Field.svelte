@@ -9,6 +9,7 @@
     let focus_id = "";
     onMount(async () => {
         field.dig({ ...controller.currentPosition(), attack: 1000 });
+        field = field;
         focus_current_position();
     });
 
@@ -90,11 +91,7 @@
         <div class="row">
             {#each row as block}
                 <div class="block" tabindex="0" id={block.id}>
-                    {#if block.durable == 0}
-                        <WhiteBlock {px} />
-                    {:else}
-                        <Block {px} type={block.type} />
-                    {/if}
+                    <Block {px} skin={block.skin} />
                     {#if focus_id == block.id}
                         <div class="overlay" />
                     {/if}
