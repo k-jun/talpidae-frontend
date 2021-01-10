@@ -4,10 +4,10 @@ import BlockState from "./block"
 import { v4 as uuidv4 } from 'uuid';
 
 export default class FieldState {
-    static minHeight = 10;
-    static minWidth = 20;
-    static maxHeight = 100;
-    static maxWidth = 200;
+    static minHeight = 20;
+    static minWidth = 10;
+    static maxHeight = 250;
+    static maxWidth = 150;
 
     static treasureCount = 3;
 
@@ -38,13 +38,10 @@ export default class FieldState {
 
     static validate_hw({ height, width }) {
         if (
-            BlockState.minHeight <= height &&
-            height <= BlockState.maxHeight &&
-            BlockState.minWidth <= width &&
-            width <= BlockState.maxWidth
+            height < FieldState.minHeight || height > FieldState.maxHeight ||
+            width < FieldState.minWidth || width > FieldState.maxWidth
         ) {
-            throw 'invalid arguments';
-
+            throw 'invalid height or width';
         }
     }
 
